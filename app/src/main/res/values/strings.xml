@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">MapDemo</string>
+    <string name="title_activity_maps">MapsActivity</string>
+
+    <string name="API_KEY">AIzaSyBnze-wdUC7WYwvyT1qXT4LbulUUz59HQc</string>
+    <string name="txtMapType">Map type</string>
+    <string name="cd_close">close</string>
+    <string name="txt_default">Default</string>
+    <string name="txt_satellite">Satellite</string>
+    <string name="txt_terrain">Terrain</string>
+    <string name="txtMapDetails">Map details</string>
+    <string name="txt_traffic">Traffic</string>
+    <string name="txtLayer">Layer</string>
+    <string name="txtDroppedPin">Dropped pin</string>
+</resources>

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/_20sdp">
+
+    <ImageView
+        android:id="@+id/imgV_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/cd_close"
+        android:src="@drawable/baseline_close_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtMapType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/txtMapType"
+        android:textSize="@dimen/_14ssp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/blockDefault"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_25sdp"
+        app:layout_constraintEnd_toStartOf="@id/blockSatellite"
+        app:layout_constraintHorizontal_weight="@integer/material_motion_duration_short_2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtMapType">
+
+        <ImageView
+            android:id="@+id/mapTypeDefault"
+            android:layout_width="@dimen/_53sdp"
+            android:layout_height="@dimen/_53sdp"
+            android:contentDescription="@string/txt_default"
+            android:padding="@dimen/_4sdp"
+            android:src="@drawable/type_default"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txtDefault"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:text="@string/txt_default"
+            app:layout_constraintEnd_toEndOf="@id/mapTypeDefault"
+            app:layout_constraintStart_toStartOf="@id/mapTypeDefault"
+            app:layout_constraintTop_toBottomOf="@id/mapTypeDefault" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/blockSatellite"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toStartOf="@id/blockTerrain"
+        app:layout_constraintHorizontal_weight="@integer/material_motion_duration_short_2"
+        app:layout_constraintStart_toEndOf="@id/blockDefault"
+        app:layout_constraintTop_toTopOf="@id/blockDefault">
+
+        <ImageView
+            android:id="@+id/mapTypeSatellite"
+            android:layout_width="@dimen/_53sdp"
+            android:layout_height="@dimen/_53sdp"
+            android:contentDescription="@string/txt_satellite"
+            android:padding="@dimen/_4sdp"
+            android:src="@drawable/type_satellite"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txtSatellite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:text="@string/txt_satellite"
+            app:layout_constraintEnd_toEndOf="@id/mapTypeSatellite"
+            app:layout_constraintStart_toStartOf="@id/mapTypeSatellite"
+            app:layout_constraintTop_toBottomOf="@id/mapTypeSatellite" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/blockTerrain"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_weight="@integer/material_motion_duration_short_2"
+        app:layout_constraintStart_toEndOf="@id/blockSatellite"
+        app:layout_constraintTop_toTopOf="@id/blockSatellite">
+
+        <ImageView
+            android:id="@+id/mapTypeTerrain"
+            android:layout_width="@dimen/_53sdp"
+            android:layout_height="@dimen/_53sdp"
+            android:contentDescription="@string/txt_terrain"
+            android:padding="@dimen/_4sdp"
+            android:src="@drawable/type_terrain"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txtTerrain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:text="@string/txt_terrain"
+            app:layout_constraintEnd_toEndOf="@id/mapTypeTerrain"
+            app:layout_constraintStart_toStartOf="@id/mapTypeTerrain"
+            app:layout_constraintTop_toBottomOf="@id/mapTypeTerrain" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/divider"
+        style="@style/Divider.Horizontal"
+        android:layout_marginTop="@dimen/_20sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/blockDefault" />
+
+    <TextView
+        android:id="@+id/txtMapDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:text="@string/txtMapDetails"
+        android:textSize="@dimen/_14ssp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/divider" />
+
+    <ImageView
+        android:id="@+id/mapDetailTraffic"
+        android:layout_width="@dimen/_53sdp"
+        android:layout_height="@dimen/_53sdp"
+        android:layout_marginTop="@dimen/_25sdp"
+        android:contentDescription="@string/txt_traffic"
+        android:padding="@dimen/_4sdp"
+        android:src="@drawable/detail_traffic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtMapDetails" />
+
+    <TextView
+        android:id="@+id/txtTraffic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:text="@string/txt_traffic"
+        app:layout_constraintEnd_toEndOf="@id/mapDetailTraffic"
+        app:layout_constraintStart_toStartOf="@id/mapDetailTraffic"
+        app:layout_constraintTop_toBottomOf="@id/mapDetailTraffic" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
