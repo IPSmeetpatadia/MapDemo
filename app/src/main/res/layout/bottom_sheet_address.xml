@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:padding="@dimen/_20sdp">
 
     <ImageView
@@ -29,10 +29,10 @@
         android:id="@+id/txt_Address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="address"
-        android:textSize="@dimen/_13ssp"
         android:layout_marginTop="@dimen/_9sdp"
+        android:textSize="@dimen/_13ssp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txtDroppedPin"
-        app:layout_constraintStart_toStartOf="parent"/>
+        tools:text="address" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

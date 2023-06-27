@@ -12,4 +12,7 @@
     <string name="txt_traffic">Traffic</string>
     <string name="txtLayer">Layer</string>
     <string name="txtDroppedPin">Dropped pin</string>
+    <string name="txt_no_gps_title">To continue, turn on device location, which uses Google\'s location service</string>
+    <string name="txt_ok">OK</string>
+    <string name="txt_no_thanks">No thanks</string>
 </resources>

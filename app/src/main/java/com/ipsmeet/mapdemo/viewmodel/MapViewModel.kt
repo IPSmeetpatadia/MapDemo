@@ -8,10 +8,13 @@ import android.location.Geocoder
 import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
+import android.widget.RelativeLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -42,7 +45,7 @@ class MapViewModel: ViewModel() {
     private var trafficView: Boolean = false
 
     val handler = Handler()
-    lateinit var runnable: Runnable
+    private lateinit var runnable: Runnable
 
     //  CHECK APP-PERMISSIONS
     fun checkPermission(activity: Activity) {
@@ -62,14 +65,17 @@ class MapViewModel: ViewModel() {
     fun getCoordinates(lat: Double, lng: Double) {
         latitude = lat
         longitude = lng
+        Log.d("getCoordinates() ~ latitude", latitude.toString())
+        Log.d("getCoordinates() ~ longitude", longitude.toString())
     }
 
-    fun onMapReady(activity: Activity, googleMap: GoogleMap) {
+    fun onMapReady(activity: Activity, googleMap: GoogleMap, mapFragment: Fragment) {
         mMap = googleMap
         checkPermission(activity)
         mMap.isMyLocationEnabled = true
 
         liveLatLng = LatLng(latitude, longitude)
+        sharedPref(activity)
         Log.i("Current LatLng", liveLatLng.toString())
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(liveLatLng, 16f))
 
@@ -79,6 +85,32 @@ class MapViewModel: ViewModel() {
             markerLatLng = it
             viewAddress(activity, it)
             Log.i("Marker LatLng", it.toString())
+        }
+
+        if (mapFragment.requireView().findViewById<View?>("1".toInt()) != null) {
+            // Get the button view
+            val locationButton: View = (mapFragment.requireView().findViewById<View>("1".toInt()).parent as View).findViewById("2".toInt())
+            // and next place it, on bottom right (as Google Maps app)
+            val layoutParams: RelativeLayout.LayoutParams = locationButton.layoutParams as RelativeLayout.LayoutParams
+            // position on right bottom
+            layoutParams.apply {
+                addRule(RelativeLayout.ALIGN_PARENT_TOP, 0)
+                addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE)
+                setMargins(0, 0, 0, 120)
+            }
+        }
+
+        if (mapFragment.requireView().findViewById<View?>("2".toInt()) != null) {
+            // Get the button view
+            val locationButton: View = (mapFragment.requireView().findViewById<View>("2".toInt()).parent as View).findViewById("5".toInt())
+            // and next place it, on top right (as Google Maps app)
+            val layoutParams: RelativeLayout.LayoutParams = locationButton.layoutParams as RelativeLayout.LayoutParams
+            // position on right top
+            layoutParams.apply {
+                addRule(RelativeLayout.ALIGN_PARENT_START, 0)
+                addRule(RelativeLayout.ALIGN_PARENT_END, RelativeLayout.TRUE)
+                setMargins(0, 190, 50, 0)
+            }
         }
     }
 
@@ -129,7 +161,7 @@ class MapViewModel: ViewModel() {
                     }
                     notificationManager.notify(911, notification)
 
-                    handler.removeCallbacks(runnable)
+                    handler.removeCallbacks(this)
                 }
             }
         }
@@ -229,5 +261,13 @@ class MapViewModel: ViewModel() {
                 }
             }
         }
+    }
+
+    private fun sharedPref(context: Context) {
+        val sharedPreferences = context.getSharedPreferences("lastLatLng", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putString("lastLat", latitude.toString())
+        editor.putString("lastLng", longitude.toString())
+        editor.apply()
     }
 }
