@@ -28,7 +28,7 @@ import com.ipsmeet.mapdemo.databinding.BottomSheetAddressBinding
 import com.ipsmeet.mapdemo.databinding.BottomSheetDifferentViewBinding
 import kotlinx.coroutines.Runnable
 
-class MapViewModel: ViewModel() {
+class MapViewModel : ViewModel() {
 
     private lateinit var mMap: GoogleMap
     private var longitude: Double = 0.0
@@ -56,7 +56,8 @@ class MapViewModel: ViewModel() {
                 activity, arrayOf(
                     "android.permission.ACCESS_COARSE_LOCATION",
                     "android.permission.ACCESS_FINE_LOCATION"
-                ), 1)
+                ), 1
+            )
             return
         }
     }
@@ -87,6 +88,7 @@ class MapViewModel: ViewModel() {
             Log.i("Marker LatLng", it.toString())
         }
 
+        // gps-location button
         if (mapFragment.requireView().findViewById<View?>("1".toInt()) != null) {
             // Get the button view
             val locationButton: View = (mapFragment.requireView().findViewById<View>("1".toInt()).parent as View).findViewById("2".toInt())
@@ -100,6 +102,7 @@ class MapViewModel: ViewModel() {
             }
         }
 
+        // compass button
         if (mapFragment.requireView().findViewById<View?>("2".toInt()) != null) {
             // Get the button view
             val locationButton: View = (mapFragment.requireView().findViewById<View>("2".toInt()).parent as View).findViewById("5".toInt())
@@ -126,16 +129,24 @@ class MapViewModel: ViewModel() {
             bottomSheet.dismiss()
         }
 
-        dialogBinding.txtAddress.text = getAddress(context,latLng)
+        dialogBinding.txtAddress.text = getAddress(context, latLng)
         findDifferenceBetweenPoints(context)
     }
 
     //  GET ADDRESS OF MARKED LOCATION (DROPPED PIN)
-    private fun getAddress(context: Context,latLng: LatLng): String {
+    private fun getAddress(context: Context, latLng: LatLng): String? {
         val geocoder = Geocoder(context)
-        val list = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 6)
-        Log.d("list", list.toString())
-        return list!![0].getAddressLine(0)
+        return try {
+            val list = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 6)
+            Log.d("list", list.toString())
+            try {
+                list!![0].getAddressLine(0)
+            } catch (e: IndexOutOfBoundsException) {
+                null
+            }
+        } catch (e: Exception) {
+            e.cause?.message.toString()
+        }
     }
 
     private fun findDifferenceBetweenPoints(context: Activity) {
@@ -148,7 +159,7 @@ class MapViewModel: ViewModel() {
                 if (distanceInMeter < 500) {
                     val notificationManager = NotificationManagerCompat.from(context)
 
-                    val notification =NotificationCompat.Builder(context, "notification_channel")
+                    val notification = NotificationCompat.Builder(context, "notification_channel")
                         .setContentTitle("Near by")
                         .setContentText("You are in 500 meter radius of Dropped Pin")
                         .setSmallIcon(R.drawable.baseline_location_on_24)
@@ -169,7 +180,7 @@ class MapViewModel: ViewModel() {
     }
 
     //  BOTTOM SHEET: Map-Types and May-Details
-    fun enableBottomSheet(activity: Context, enable: Boolean) {
+    fun enableBottomSheet(activity: Context, mMap: GoogleMap, enable: Boolean) {
         val dialogBinding = BottomSheetDifferentViewBinding.inflate(LayoutInflater.from(activity))
 
         val bottomSheetDialog = BottomSheetDialog(activity)
